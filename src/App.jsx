@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 
@@ -6,7 +6,11 @@ function App() {
   const [inputText, setInputText] = useState("");
   const [data, setData] = useState([]);
 
-  console.log("fetch data :", data);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchFromGoggle();
+    }, 500);
+  }, [inputText]);
 
   const fetchFromGoggle = async () => {
     const result = await axios.get(
@@ -32,7 +36,6 @@ function App() {
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
       ></input>
-      <button onClick={fetchFromGoggle}>Search</button>
       <ul>{listElement}</ul>
     </div>
   );
